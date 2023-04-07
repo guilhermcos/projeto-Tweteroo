@@ -4,14 +4,6 @@ const data = {
         avatar: ''
     },
     serverTweets: [
-        {
-            username: "bobesponja",
-            tweet: "bob caramelo"
-        },
-        {
-            username: "patrickestrela",
-            tweet: "patrick estrelado"
-        }
     ],
     registeredUsers: [
         {

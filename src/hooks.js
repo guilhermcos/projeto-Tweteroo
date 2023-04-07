@@ -17,6 +17,10 @@ function signUp(body, res) {
 }
 
 function tweeting(body, res) {
+    if (!registeredUsers.some((registeredUser) => registeredUser.username === body.username)) {
+        res.status(400).send("UNAUTHORIZED");
+        return
+    }
     const sendingTweet = {
         username: body.username,
         tweet: body.tweet
