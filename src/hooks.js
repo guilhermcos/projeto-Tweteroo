@@ -3,6 +3,14 @@ import data from "./data.js";
 const { localUser, serverTweets, registeredUsers } = data;
 
 function signUp(body, res) {
+    if (!body.username || !body.avatar) {
+        res.status(400).send("bad request");
+        return
+    }
+    if (typeof body.username !== "string" || typeof body.avatar !== "string") {
+        res.status(400).send("bad request");
+        return
+    }
     if (registeredUsers.some((each) => each.username === body.username)) {
         const user = registeredUsers.find((each) => each.username === body.username)
         user.username = body.username;
@@ -17,8 +25,16 @@ function signUp(body, res) {
 }
 
 function tweeting(body, res) {
+    if (!body.username || !body.tweet) {
+        res.status(400).send("bad request");
+        return
+    }
+    if (typeof body.username !== "string" || typeof body.tweet !== "string") {
+        res.status(400).send("bad request");
+        return
+    }
     if (!registeredUsers.some((registeredUser) => registeredUser.username === body.username)) {
-        res.status(400).send("UNAUTHORIZED");
+        res.status(401).send("UNAUTHORIZED");
         return
     }
     const sendingTweet = {
@@ -48,7 +64,6 @@ function getTweets(res) {
         res.send(tweets);
         return
     }
-
     const lastTenTweets = tweets.slice(-10);
     res.send(lastTenTweets);
 }
