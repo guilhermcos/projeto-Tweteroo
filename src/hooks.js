@@ -12,7 +12,7 @@ function signUp(body, res) {
     }
     localUser.username = body.username;
     localUser.avatar = body.avatar;
-    res.status(200).send("OK");
+    res.status(201).send("OK");
     return
 }
 
@@ -53,13 +53,8 @@ function getTweets(res) {
     res.send(lastTenTweets);
 }
 
-function showSomething() {
-    localUser.username = "João";
-};
-
 export default {
     signUp,
-    showSomething,
     tweeting,
     getTweets
 }
