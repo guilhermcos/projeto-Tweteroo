@@ -42,7 +42,7 @@ function tweeting(body, res) {
         tweet: body.tweet
     }
     serverTweets.push(sendingTweet);
-    res.status(200).send("OK");
+    res.status(201).send("OK");
 }
 
 function getTweets(res) {
