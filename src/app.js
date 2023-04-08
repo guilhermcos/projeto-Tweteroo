@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import data from "./data.js";
 import hooks from "./hooks.js";
-const { signUp, tweeting, getTweets } = hooks
+const { signUp, tweeting, getTweets, getTweetsByUser } = hooks
 
 const app = express();
 
@@ -17,6 +17,10 @@ app.post("/tweets", (req, res) => {
 })
 app.get("/tweets", (req, res) => {
     getTweets(res);
+})
+app.get("/tweets/:USERNAME", (req, res) => {
+    const { USERNAME } = req.params;
+    getTweetsByUser(USERNAME, res);
 })
 
 const PORT = 5000;

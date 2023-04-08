@@ -47,7 +47,7 @@ function tweeting(body, res) {
 
 function getTweets(res) {
     if (serverTweets.length === 0) {
-        res.send([]);
+        res.status(200).send([]);
         return
     }
     const tweets = serverTweets.map((serverTweet) => {
@@ -61,15 +61,44 @@ function getTweets(res) {
         )
     })
     if (tweets.length <= 10) {
-        res.send(tweets);
+        res.status(200).send(tweets);
         return
     }
     const lastTenTweets = tweets.slice(-10);
-    res.send(lastTenTweets);
+    res.status(200).send(lastTenTweets);
+}
+
+function getTweetsByUser(username, res) {
+    if (serverTweets.length === 0) {
+        res.status(200).send([]);
+        return
+    }
+    const userTweets = serverTweets.filter((serverTweet) => (username === serverTweet.username));
+    if (userTweets.length === 0) {
+        res.status(200).send([]);
+        return
+    }
+    const tweets = userTweets.map((userTweet) => {
+        const userAvatar = registeredUsers.find((registeredUser) => registeredUser.username === userTweet.username).avatar
+        return (
+            {
+                username: userTweet.username,
+                avatar: userAvatar,
+                tweet: userTweet.tweet
+            }
+        )
+    })
+    if (tweets.length <= 10) {
+        res.status(200).send(tweets);
+        return
+    }
+    const lastTenTweets = tweets.slice(-10);
+    res.status(200).send(lastTenTweets); I
 }
 
 export default {
     signUp,
     tweeting,
-    getTweets
+    getTweets,
+    getTweetsByUser
 }
