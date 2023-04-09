@@ -45,9 +45,32 @@ function tweeting(body, res) {
     res.status(201).send("OK");
 }
 
-function getTweets(res) {
+function calcTweetsByPage(page) {
+    const tweets = serverTweets;
+    tweets.reverse();
+    const tweetsByPage = [];
+    const init = 10 * (page - 1);
+    for (let i = init; i <= init + 9; i++) {
+        if (tweets[i] === undefined) {
+            break;
+        }
+        tweetsByPage.push(tweets[i]);
+    }
+    return tweetsByPage
+}
+
+function getTweets(res, page) {
     if (serverTweets.length === 0) {
         res.status(200).send([]);
+        return
+    }
+    if (!isNaN(page)) {
+        if (page <= 0) {
+            res.status(400).send("Informe uma página válida!");
+            return
+        }
+        const tweetsByPage = calcTweetsByPage(page);
+        res.status(200).send(tweetsByPage);
         return
     }
     const tweets = serverTweets.map((serverTweet) => {
@@ -88,12 +111,8 @@ function getTweetsByUser(username, res) {
             }
         )
     })
-    if (tweets.length <= 10) {
-        res.status(200).send(tweets);
-        return
-    }
-    const lastTenTweets = tweets.slice(-10);
-    res.status(200).send(lastTenTweets); I
+    res.status(200).send(tweets);
+    return
 }
 
 export default {

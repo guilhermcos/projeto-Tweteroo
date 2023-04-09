@@ -16,7 +16,9 @@ app.post("/tweets", (req, res) => {
     tweeting(req.body, res);
 })
 app.get("/tweets", (req, res) => {
-    getTweets(res);
+    const page = parseInt(req.query.page);
+    console.log(page);
+    getTweets(res, page);
 })
 app.get("/tweets/:USERNAME", (req, res) => {
     const { USERNAME } = req.params;
