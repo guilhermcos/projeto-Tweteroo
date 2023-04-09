@@ -1,10 +1,5 @@
 const data = {
-    localUser: {
-        username: '',
-        avatar: ''
-    },
-    serverTweets: [
-    ],
+    serverTweets: [],
     registeredUsers: [
         {
             username: "bobesponja",

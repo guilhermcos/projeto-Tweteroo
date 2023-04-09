@@ -1,6 +1,6 @@
 import data from "./data.js";
 
-const { localUser, serverTweets, registeredUsers } = data;
+const { serverTweets, registeredUsers } = data;
 
 function signUp(body, res) {
     if (!body.username || !body.avatar) {
@@ -18,8 +18,6 @@ function signUp(body, res) {
     } else {
         registeredUsers.push(body);
     }
-    localUser.username = body.username;
-    localUser.avatar = body.avatar;
     res.status(201).send("OK");
     return
 }
