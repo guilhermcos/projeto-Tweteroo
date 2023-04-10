@@ -13,7 +13,7 @@ app.post("/sign-up", (req, res) => {
     signUp(req.body, res);
 })
 app.post("/tweets", (req, res) => {
-    tweeting(req.body, res);
+    tweeting(req.body, res, req.headers.user);
 })
 app.get("/tweets", (req, res) => {
     const page = parseInt(req.query.page);

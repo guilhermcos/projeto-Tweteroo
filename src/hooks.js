@@ -22,21 +22,21 @@ function signUp(body, res) {
     return
 }
 
-function tweeting(body, res) {
-    if (!body.username || !body.tweet) {
+function tweeting(body, res, userHeader) {
+    if (!userHeader || !body.tweet) {
         res.status(400).send("bad request");
         return
     }
-    if (typeof body.username !== "string" || typeof body.tweet !== "string") {
+    if (typeof userHeader !== "string" || typeof body.tweet !== "string") {
         res.status(400).send("bad request");
         return
     }
-    if (!registeredUsers.some((registeredUser) => registeredUser.username === body.username)) {
+    if (!registeredUsers.some((registeredUser) => registeredUser.username === userHeader)) {
         res.status(401).send("UNAUTHORIZED");
         return
     }
     const sendingTweet = {
-        username: body.username,
+        username: userHeader,
         tweet: body.tweet
     }
     serverTweets.push(sendingTweet);
